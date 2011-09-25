@@ -34,39 +34,23 @@ bool StringUtils::isWhiteSpace(char c) {
   return (' ' == c || '\t' == c || '\n' == c);
 }
 
-
-vector<string> split(string s, char c){
-  vector<string> v;
-  size_t i=-1;
-  size_t j=0;
-  while(string::npos!=j){
-    j=s.find_first_of(c,i+1);
-    if(string::npos==j){
-      v.push_back( s.substr(i+1, s.size()-i-1 ) );
-    } else {
-      v.push_back( s.substr(i+1, j-i-1) );
-    }
-    i=j;
-  }
-  return v;
-}
-
-
-
-vector<string> StringUtils::split(const string &s, char c){
+vector<string> StringUtils::split(const string &s, const string &separator) {
   vector<string> v;
   if ("" == s) {
     v.push_back("");
     return v;
   }
-  size_t prevIndex =-1;
+  int sep_length = separator.size();
+  size_t prevIndex = -sep_length;
   size_t nextIndex = 0;
   while(string::npos != nextIndex){
-    nextIndex = s.find_first_of(c, prevIndex + 1);
+    nextIndex = s.find(separator, prevIndex + sep_length);
     if(string::npos == nextIndex){
-      v.push_back(s.substr(prevIndex + nextIndex, s.size() - prevIndex - 1));
+      v.push_back(s.substr(prevIndex + sep_length,
+            s.size() - prevIndex - sep_length));
     } else {
-      v.push_back(s.substr(prevIndex + 1, nextIndex - prevIndex - 1));
+      v.push_back(s.substr(prevIndex + sep_length,
+            nextIndex - prevIndex - sep_length));
     }
     prevIndex = nextIndex;
   }

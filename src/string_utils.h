@@ -20,7 +20,7 @@ class StringUtils {
 
   static bool isWhiteSpace(char c);
 
-  static vector<string> split(const string &s, char c);
+  static vector<string> split(const string &s, const string &separator);
 };
 
 }
