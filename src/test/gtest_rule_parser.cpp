@@ -11,7 +11,7 @@ using std::map;
 using std::exception;
 
 using mingluc::RuleParser;
-using mingluc::MultipleRulesException;
+using mingluc::MinglucException;
 
 namespace {
 
@@ -83,7 +83,9 @@ TEST_F(RuleParserTest, testBadRule1) {
     try {
       ruleParser.run();
       FAIL();
-    } catch (exception e) {}
+    } catch (MinglucException e) {
+      fprintf(stderr, "%s", e.what());
+    }
   }
 
 TEST_F(RuleParserTest, testBadRule2) {
@@ -92,7 +94,9 @@ TEST_F(RuleParserTest, testBadRule2) {
     try {
       ruleParser.run();
       FAIL();
-    } catch (exception e) {}
+    } catch (MinglucException e) {
+      fprintf(stderr, "%s", e.what());
+    }
   }
 
 TEST_F(RuleParserTest, testMultipleRules) {
@@ -101,7 +105,10 @@ TEST_F(RuleParserTest, testMultipleRules) {
     try {
       ruleParser.run();
       FAIL();
-    } catch (MultipleRulesException e) {}
+      
+    } catch (MinglucException &e) {
+      fprintf(stderr, "%s", e.what());
+    }
   }
 
 
