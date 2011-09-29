@@ -21,6 +21,8 @@ class StringUtils {
   static bool isWhiteSpace(char c);
 
   static vector<string> split(const string &s, const string &separator);
+
+  static bool contains(const string &s1, const string &s2);
 };
 
 }

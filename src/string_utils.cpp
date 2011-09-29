@@ -57,5 +57,8 @@ vector<string> StringUtils::split(const string &s, const string &separator) {
   return v;
 }
 
+bool StringUtils::contains(const string &s1, const string &s2) {
+  return string::npos != s1.find(s2, 0);
+}
 
 }

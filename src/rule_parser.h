@@ -34,6 +34,9 @@ class RuleParser {
   map<string, string> getRules();
  private:
   void processOneRule(string rule);
+  void processArrowRule(string rule);
+  void processAtRule(string rule);
+  void throwIncorrectRuleError(string rule);
 };
 
 }
