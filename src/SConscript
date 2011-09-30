@@ -18,11 +18,12 @@ env.Object(Glob('*.cpp'))
 env.Object(Glob('*/*.cpp'))
 # env.Object(Glob('*/*/*.cpp'))
 
-Objects = ['string_utils.o', 'rule_parser.o']
+Objects = ['string_utils.o', 'rule_parser.o', 'glu_manager.o', 'test/test_classes.o']
 
 #env.Program('main_parser', ['main_parser'] + Objects)
 
 env.Program('test/gtest_string_utils', ['test/gtest_string_utils'] + Objects)
 env.Program('test/gtest_rule_parser', ['test/gtest_rule_parser'] + Objects)
+env.Program('test/gtest_glu_manager', ['test/gtest_glu_manager'] + Objects)
 
 

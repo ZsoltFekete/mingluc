@@ -3,5 +3,6 @@
 
 #include "injectable.h"
 #include "glu_container.h"
+#include "glu_manager.h"
 
 #endif

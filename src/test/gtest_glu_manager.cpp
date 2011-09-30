@@ -9,7 +9,7 @@
 using std::string;
 using std::vector;
 
-//using mingluc::StringUtils;
+using mingluc::GluManager;
 
 namespace {
 
@@ -26,13 +26,40 @@ class GluManagerTest : public ::testing::Test {
 
 
 TEST_F(GluManagerTest, test) {
-  TestClassA *objectA = new TestClassA();
-  TestClassB *objectB = new TestClassB();
-  string s = "alma";
-  EXPECT_EQ("alma", s);
+  vector<string> flow;
+  TestClassA *a1 = new TestClassA(&flow);
+  TestClassA *a2 = new TestClassA(&flow);
+  TestClassB *b = new TestClassB(&flow);
+ 
+  GluManager mingluc;
+  mingluc.add("a1", a1, "B <- b");
+  mingluc.add("a2", a2, "B<- b");
+  mingluc.add("b", b, "A1 <- a1, A2 <- a2");
+  mingluc.setDependencies();
+  mingluc.init();
+
+  ASSERT_EQ(6, flow.size());
+  ASSERT_EQ("a_set_dep", flow[0]);
+  ASSERT_EQ("a_set_dep", flow[1]);
+  ASSERT_EQ("b_set_dep", flow[2]);
+  ASSERT_EQ("a_init", flow[3]);
+  ASSERT_EQ("a_init", flow[4]);
+  ASSERT_EQ("b_init", flow[5]);
+  ASSERT_EQ(a1, b->objectA1_);
+  ASSERT_EQ(a2, b->objectA2_);
+  ASSERT_EQ(b, a1->objectB_);
+  ASSERT_EQ(b, a2->objectB_);
+
+  delete a1;
+  delete a2;
+  delete b;
 }
 
-
-
 }
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
 
