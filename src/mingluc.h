@@ -4,5 +4,6 @@
 #include "injectable.h"
 #include "glu_container.h"
 #include "glu_manager.h"
+#include "rule_parser.h"
 
 #endif

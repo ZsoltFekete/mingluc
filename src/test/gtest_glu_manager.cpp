@@ -10,6 +10,7 @@ using std::string;
 using std::vector;
 
 using mingluc::GluManager;
+using mingluc::MinglucException;
 
 namespace {
 
@@ -53,6 +54,72 @@ TEST_F(GluManagerTest, test) {
   delete a1;
   delete a2;
   delete b;
+}
+
+
+TEST_F(GluManagerTest, testIncompleteRule) {
+  vector<string> flow;
+  TestClassA *a1 = new TestClassA(&flow);
+  TestClassA *a2 = new TestClassA(&flow);
+  TestClassB *b = new TestClassB(&flow);
+ 
+  GluManager mingluc;
+  mingluc.add("a1", a1, "B <- b");
+  mingluc.add("a2", a2, "B<- b");
+  mingluc.add("b", b, "A1 <- a1");
+  try {
+    mingluc.setDependencies();
+    FAIL();
+  } catch (MinglucException e) {
+//    System.out.println(e.toString());
+  }
+}
+
+TEST_F(GluManagerTest, testTooManyRule) {
+  vector<string> flow;
+  TestClassA *a1 = new TestClassA(&flow);
+  TestClassA *a2 = new TestClassA(&flow);
+  TestClassB *b = new TestClassB(&flow);
+ 
+  GluManager mingluc;
+  mingluc.add("a1", a1, "B <- b");
+  mingluc.add("a2", a2, "B<- b");
+  mingluc.add("b", b, "A1 <- a1, A2<- a2, A3 <-a1");
+  try {
+    mingluc.setDependencies();
+    FAIL();
+  } catch (MinglucException e) {
+//    System.out.println(e.toString());
+  }
+}
+
+TEST_F(GluManagerTest, testMultipleRules) {
+  vector<string> flow;
+  TestClassA *a1 = new TestClassA(&flow);
+  TestClassA *a2 = new TestClassA(&flow);
+  TestClassB *b = new TestClassB(&flow);
+ 
+  GluManager mingluc;
+  mingluc.add("a1", a1, "B <- b");
+  mingluc.add("a2", a2, "B<- b");
+  try {
+    mingluc.add("b", b, "A1 <- a1, A2<- a2, A1 <-a1");
+    FAIL();
+  } catch (MinglucException e) {
+//    System.out.println(e.toString());
+  }
+}
+
+TEST_F(GluManagerTest, testMultipleRegistrations) {
+  vector<string> flow;
+  TestClassA *a1 = new TestClassA(&flow);
+ 
+  GluManager mingluc;
+  mingluc.add("a1", a1, "B <- b");
+  try {
+    mingluc.add("a1", a1, "B <- b");
+    FAIL();
+  } catch (MinglucException e) {}
 }
 
 }
