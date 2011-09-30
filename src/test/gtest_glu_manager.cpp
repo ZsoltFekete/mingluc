@@ -71,7 +71,7 @@ TEST_F(GluManagerTest, testIncompleteRule) {
     mingluc.setDependencies();
     FAIL();
   } catch (MinglucException e) {
-//    System.out.println(e.toString());
+    fprintf(stderr, "%s", e.what());
   }
 }
 
@@ -89,7 +89,7 @@ TEST_F(GluManagerTest, testTooManyRule) {
     mingluc.setDependencies();
     FAIL();
   } catch (MinglucException e) {
-//    System.out.println(e.toString());
+    fprintf(stderr, "%s", e.what());
   }
 }
 
@@ -106,7 +106,7 @@ TEST_F(GluManagerTest, testMultipleRules) {
     mingluc.add("b", b, "A1 <- a1, A2<- a2, A1 <-a1");
     FAIL();
   } catch (MinglucException e) {
-//    System.out.println(e.toString());
+    fprintf(stderr, "%s", e.what());
   }
 }
 
@@ -119,7 +119,9 @@ TEST_F(GluManagerTest, testMultipleRegistrations) {
   try {
     mingluc.add("a1", a1, "B <- b");
     FAIL();
-  } catch (MinglucException e) {}
+  } catch (MinglucException e) {
+    fprintf(stderr, "%s", e.what());
+  }
 }
 
 }
