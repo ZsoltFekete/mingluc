@@ -73,6 +73,9 @@ TEST_F(GluManagerTest, testIncompleteRule) {
   } catch (MinglucException e) {
     fprintf(stderr, "%s", e.what());
   }
+  delete a1;
+  delete a2;
+  delete b;
 }
 
 TEST_F(GluManagerTest, testTooManyRule) {
@@ -91,6 +94,9 @@ TEST_F(GluManagerTest, testTooManyRule) {
   } catch (MinglucException e) {
     fprintf(stderr, "%s", e.what());
   }
+  delete a1;
+  delete a2;
+  delete b;
 }
 
 TEST_F(GluManagerTest, testMultipleRules) {
@@ -108,6 +114,9 @@ TEST_F(GluManagerTest, testMultipleRules) {
   } catch (MinglucException e) {
     fprintf(stderr, "%s", e.what());
   }
+  delete a1;
+  delete a2;
+  delete b;
 }
 
 TEST_F(GluManagerTest, testMultipleRegistrations) {
@@ -122,6 +131,7 @@ TEST_F(GluManagerTest, testMultipleRegistrations) {
   } catch (MinglucException e) {
     fprintf(stderr, "%s", e.what());
   }
+  delete a1;
 }
 
 }

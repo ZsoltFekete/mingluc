@@ -21,6 +21,17 @@ GluContainerImpl::GluContainerImpl(map<string, string> rules,
   objects_ = objects;
   my_id_ = my_id;
 }
+ 
+void GluContainerImpl::checkForUnusedRules() {
+  for (map<string, string>::const_iterator it = rules_.begin();
+        it != rules_.end(); ++it) {
+    string rule_key = it->first;
+    if (used_rules_.end() == used_rules_.find(rule_key)) {
+      throw MinglucException("Unused rule in \"" + my_id_ + "\": \""
+          + rule_key + "<-" + rules_[rule_key] + "\"");
+    }
+  }
+}
 
 void *GluContainerImpl::get(string name) {
   string id;
@@ -45,9 +56,18 @@ void *GluContainerImpl::get(string name) {
 }
 
 void GluManager::add(string name, Injectable *object, string rule_string) {
+  checkForMultipleRegistrations(name);
   ObjectDescriptor objectDescriptor(name, object, parserRules(rule_string));
   objects_.push_back(objectDescriptor);
   name_to_object_[name] = object;
+}
+
+void GluManager::checkForMultipleRegistrations(string name) {
+  if (name_to_object_.end() != name_to_object_.find(name)) {
+    throw MinglucException(
+        "This id has been already registered in GluManager:\""
+        + name + "\"");
+  }
 }
 
 map<string, string> GluManager::parserRules(string rule_string) {
@@ -62,6 +82,7 @@ void GluManager::setDependencies() {
     GluContainerImpl gluContainer(objectDescriptor.rules, name_to_object_,
         objectDescriptor.name);
     objectDescriptor.object->setDependencies(gluContainer);
+    gluContainer.checkForUnusedRules();
   }
 }
 

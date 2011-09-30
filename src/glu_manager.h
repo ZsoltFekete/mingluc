@@ -34,8 +34,8 @@ class GluContainerImpl : public GluContainer {
  public:
   GluContainerImpl(map<string, string> rules, map<string, void*> objects,
     string my_id);
-
   void *get(string s); 
+  void checkForUnusedRules();
 };
 
 class GluManager {
@@ -48,6 +48,7 @@ class GluManager {
   void init();
  private:
   map<string, string> parserRules(string rule_string);
+  void checkForMultipleRegistrations(string name);
 };
 
 }
