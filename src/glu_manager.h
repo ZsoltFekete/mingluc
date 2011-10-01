@@ -44,6 +44,7 @@ class GluManager {
   map<string, void*> name_to_object_;
  public:
   void add(string name, Injectable *object, string rule_string);
+  void addRawObject(string name, void *object);
   void setDependencies();
   void init();
  private:

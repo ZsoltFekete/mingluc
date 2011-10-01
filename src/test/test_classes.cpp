@@ -27,3 +27,9 @@ void TestClassB::init() {
  flow_->push_back("b_init");
 }
 
+void TestClassC::setDependencies(GluContainer &glu){
+  i = static_cast<int*>(glu.get("i"));
+}
+
+void TestClassC::init() {}
+

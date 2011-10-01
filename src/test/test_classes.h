@@ -31,4 +31,11 @@ class TestClassB : public Injectable {
   TestClassA *objectA2_;
 };
 
+class TestClassC : public Injectable {
+ public:
+  void setDependencies(GluContainer &glu);
+  void init();
+  int * i;
+};
+
 #endif

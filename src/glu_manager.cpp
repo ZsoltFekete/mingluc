@@ -62,6 +62,11 @@ void GluManager::add(string name, Injectable *object, string rule_string) {
   name_to_object_[name] = object;
 }
 
+void GluManager::addRawObject(string name, void *object) {
+  checkForMultipleRegistrations(name);
+  name_to_object_[name] = object;
+}
+
 void GluManager::checkForMultipleRegistrations(string name) {
   if (name_to_object_.end() != name_to_object_.find(name)) {
     throw MinglucException(

@@ -134,6 +134,23 @@ TEST_F(GluManagerTest, testMultipleRegistrations) {
   delete a1;
 }
 
+TEST_F(GluManagerTest, testAddRawObject) {
+  vector<string> flow;
+  TestClassC *c = new TestClassC();
+  int *i = new int;
+  *i = 19;
+
+  GluManager mingluc;
+  mingluc.add("c", c, "@i");
+  mingluc.addRawObject("i", i);
+  mingluc.setDependencies();
+  mingluc.init();
+
+  ASSERT_EQ(i, c->i);
+  delete c;
+  delete i;
+}
+
 }
 
 int main(int argc, char **argv) {
