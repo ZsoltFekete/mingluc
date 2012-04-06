@@ -1,7 +1,5 @@
-from __future__ import with_statement # This isn't required in Python 2.6
-
-flags = ['-ggdb', '-Wall', '-O0']
-# flags = ['-ggdb', '-Wall', '-O3']
+#flags = ['-ggdb', '-Wall', '-O0']
+flags = ['-ggdb', '-Wall', '-O3']
 
 #gfprof
 #flags = ['-ggdb', '-Wall', '-O0', '-pg' ]

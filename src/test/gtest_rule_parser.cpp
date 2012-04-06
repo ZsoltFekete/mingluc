@@ -84,7 +84,7 @@ TEST_F(RuleParserTest, testBadRule1) {
     ruleParser.run();
     FAIL();
   } catch (MinglucException e) {
-    fprintf(stderr, "%s", e.what());
+    fprintf(stderr, "%s\n", e.what());
   }
 }
 
@@ -95,7 +95,7 @@ TEST_F(RuleParserTest, testBadRule2) {
     ruleParser.run();
     FAIL();
   } catch (MinglucException e) {
-    fprintf(stderr, "%s", e.what());
+    fprintf(stderr, "%s\n", e.what());
   }
 }
 
@@ -106,7 +106,7 @@ TEST_F(RuleParserTest, testMultipleRules) {
     ruleParser.run();
     FAIL();
   } catch (MinglucException &e) {
-    fprintf(stderr, "%s", e.what());
+    fprintf(stderr, "%s\n", e.what());
   }
 }
 
@@ -129,7 +129,7 @@ TEST_F(RuleParserTest, testBadRule3) {
     ruleParser.run();
     FAIL();
   } catch (MinglucException e) {
-    fprintf(stderr, "%s", e.what());
+    fprintf(stderr, "%s\n", e.what());
   }
 }
 
@@ -140,7 +140,7 @@ TEST_F(RuleParserTest, testBadRule4) {
     ruleParser.run();
     FAIL();
   } catch (MinglucException e) {
-    fprintf(stderr, "%s", e.what());
+    fprintf(stderr, "%s\n", e.what());
   }
 }
 
